@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask import request
 import os
 
 app = Flask(__name__)
@@ -598,8 +599,9 @@ data = [
 
 ]
 
-@app.route('/<ride_id>', methods = ['GET'])
-def index(ride_id:str):
+@app.route('/', methods = ['GET'])
+def index():
+    ride_id = request.args.get('ride_id')
     for d in data:
         if 'ride_id' in d and d['ride_id'] == ride_id:
             return jsonify(d)
